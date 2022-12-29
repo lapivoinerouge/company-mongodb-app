@@ -13,11 +13,6 @@ mongoClient.connect('mongodb://localhost:27017/', { useNewUrlParser: true, useUn
   else {
     console.log('Successfully connected to the database');
     const db = client.db('companyDB');
-    db.collection('employees').find({ department: 'IT' }).toArray((err, data) => {
-      if(!err) {
-        console.log(data)
-      }
-    });
 
     const app = express();
 
