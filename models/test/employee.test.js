@@ -5,9 +5,11 @@ const mongoose = require('mongoose');
 
 const TEST_FIRSTNAME = "Firstname";
 const TEST_LASTNAME = "Lastname";
-const TEST_DEPARTMENT = "Department";
+const TEST_DEPARTMENT = mongoose.Types.ObjectId("63b7faad5b0e8827bdcd5db3");
 
 describe('Employee', () => {
+
+  before
 
   it('should throw an error if any arg is missing', () => {
     const cases = [
@@ -48,10 +50,11 @@ describe('Employee', () => {
     }
   });
 
-  it('should throw an error if "department" is not a String', () => {
+  it('should throw an error if "department" is not an ObjectId', () => {
     const cases = [
       { firstName: TEST_FIRSTNAME, lastname: TEST_LASTNAME, department: {} },
-      { firstName: TEST_FIRSTNAME, lastname: TEST_LASTNAME, department: [] }
+      { firstName: TEST_FIRSTNAME, lastname: TEST_LASTNAME, department: [] },
+      { firstName: TEST_FIRSTNAME, lastname: TEST_LASTNAME, department: "Department" }
     ];
     for(let employee of cases) {
       const dep = new Employee(employee);
@@ -83,19 +86,6 @@ describe('Employee', () => {
       const dep = new Employee(employee);
       dep.validate(err => {
         expect(err.errors.lastName).to.exist;
-      });
-    }
-  });
-
-  it('should throw an error if "department" is too long or too short', () => {
-    const cases = [
-      { firstName: TEST_FIRSTNAME, lastname: TEST_LASTNAME, department: "" },
-      { firstName: TEST_FIRSTNAME, lastname: TEST_LASTNAME, department: "abcdefghijklmnopqrstuvwxyz" }
-    ];
-    for(let employee of cases) {
-      const dep = new Employee(employee);
-      dep.validate(err => {
-        expect(err.errors.department).to.exist;
       });
     }
   });
