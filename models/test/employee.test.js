@@ -1,5 +1,4 @@
 const Employee = require('../employee.model.js');
-const Department = require('../department.model.js');
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
 
@@ -8,9 +7,6 @@ const TEST_LASTNAME = "Lastname";
 const TEST_DEPARTMENT = mongoose.Types.ObjectId("63b7faad5b0e8827bdcd5db3");
 
 describe('Employee', () => {
-
-  before
-
   it('should throw an error if any arg is missing', () => {
     const cases = [
       { firstname: TEST_FIRSTNAME },
@@ -99,8 +95,8 @@ describe('Employee', () => {
       });
   });
 
-  });
+});
   
-  after(() => {
-      mongoose.models = {};
-  });
+after(() => {
+  mongoose.models = {};
+});
