@@ -14,7 +14,7 @@ exports.getRandom = async (req, res) => {
     const count = await Product.countDocuments();
     const rand = Math.floor(Math.random() * count);
     const data = await Product.findOne().skip(rand);
-    if(!data) res.status(404).json({ message: 'Not found' });
+    if(!data) res.status(404).json({ message: 'Product not found' });
     else res.json(data);
   }
   catch(err) {
@@ -25,7 +25,7 @@ exports.getRandom = async (req, res) => {
 exports.getById = async (req, res) => {
   try {
     const data = await Product.findById(req.params.id);
-    if(!data) res.status(404).json({ message: 'Not found' });
+    if(!data) res.status(404).json({ message: 'Product not found' });
     else res.json(data);
   }
   catch(err) {
@@ -60,9 +60,9 @@ exports.delete = async (req, res) => {
     const data = await Product.findById(req.params.id);
     if(data) {
       await Product.deleteOne({ _id: req.params.id });
-      res.json({ message: 'OK' });
+      res.status(204).json(data);
     }
-    else res.status(404).json({ message: 'Not found...' });
+    else res.status(404).json({ message: 'Product not found' });
   }
   catch(err) {
     res.status(500).json({ message: err });

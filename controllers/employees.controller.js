@@ -14,7 +14,7 @@ exports.getRandom = async (req, res) => {
     const count = await Employee.countDocuments();
     const rand = Math.floor(Math.random() * count);
     const data = await Employee.findOne().skip(rand).populate('department');
-    if(!data) res.status(404).json({ message: 'Not found' });
+    if(!data) res.status(404).json({ message: 'Employee not found' });
     else res.json(data);
   } catch (err) {
     res.status(500).json({ message: err });
@@ -24,7 +24,7 @@ exports.getRandom = async (req, res) => {
 exports.getById = async (req, res) => {
   try {
     const data = await Employee.findById(req.params.id).populate('department');
-    if(!data) res.status(404).json({ message: 'Not found' });
+    if(!data) res.status(404).json({ message: 'Employee not found' });
     else res.json(data);
   }
   catch(err) {
@@ -60,12 +60,12 @@ exports.put = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const dep = await Employee.findById(req.params.id);
-    if(dep) {
+    const data = await Employee.findById(req.params.id);
+    if(data) {
       await Employee.deleteOne({ _id: req.params.id });
-      res.json({ message: 'OK' });
+      res.status(204).json(data);
     }
-    else res.status(404).json({ message: 'Not found...' });
+    else res.status(404).json({ message: 'Employee not found' });
   }
   catch(err) {
     res.status(500).json({ message: err });

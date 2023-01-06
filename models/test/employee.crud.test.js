@@ -84,8 +84,8 @@ describe('Creating data', () => {
 
 describe('Updating data', () => {
   beforeEach(async () => {
-    testDepartmentOne = await new Department({ name: "Spanko" }).save();
-    testDepartmentTwo = await new Department({ name: "Jedzonko" }).save();
+    testDepartmentOne = await new Department(DEPARTMENT_ONE).save();
+    testDepartmentTwo = await new Department(DEPARTMENT_TWO).save();
 
     testEmployeeOne = new Employee({ firstName: "Lajka", lastName: "Piesek", department: testDepartmentOne });
     testEmployeeTwo = new Employee({ firstName: "Zuzia", lastName: "Tezpiesek", department: testDepartmentTwo });

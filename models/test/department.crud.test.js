@@ -14,7 +14,6 @@ describe('Department', () => {
   after(() => {
     mongoose.models = {};
   });
-
 });
 
 describe('Reading data', () => {
@@ -33,6 +32,7 @@ describe('Reading data', () => {
   it('should return all the data with "find" method', async () => {
     const departments = await Department.find();
     const expectedLength = 2;
+    // console.log(departments)
     expect(departments.length).to.be.equal(expectedLength);
   });
 
